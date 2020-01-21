@@ -22,7 +22,7 @@
 #' res <- scPredSeurat(reference = integrated, new = query)
 #' 
 
-scPredSeurat <- function(reference, new, threshold = NULL, weight = TRUE, ...){
+scPredSeurat <- function(reference, new, threshold = NULL, weight = TRUE, dims = 1:30, ...){
   
   # Validate input parameters
   
@@ -37,7 +37,8 @@ scPredSeurat <- function(reference, new, threshold = NULL, weight = TRUE, ...){
   # "Align" data using Seurat
   anchors <- Seurat::FindTransferAnchors(reference = reference, 
                                  query = new, 
-                                 dims = seq_len(ncol(reference@reductions$pca@cell.embeddings)), 
+                                 #dims = seq_len(ncol(reference@reductions$pca@cell.embeddings)), 
+                                 dims = dims,
                                  l2.norm = FALSE, 
                                  ...)
   # Extract cell embeddings
